@@ -1,0 +1,25 @@
+-- ==========================================
+-- REVENUE ANALYSIS
+-- ==========================================
+
+-- Total realized revenue
+SELECT
+    SUM(oi.price) AS realized_revenue
+FROM order_items oi
+JOIN orders o
+    ON oi.order_id = o.order_id
+WHERE o.order_status = 'delivered';
+
+
+-- Monthly revenue, orders and AOV
+SELECT
+    DATE_TRUNC('month', o.order_purchase_timestamp) AS month,
+    SUM(oi.price) AS revenue,
+    COUNT(DISTINCT o.order_id) AS orders,
+    SUM(oi.price) / COUNT(DISTINCT o.order_id) AS aov
+FROM order_items oi
+JOIN orders o
+    ON oi.order_id = o.order_id
+WHERE o.order_status = 'delivered'
+GROUP BY month
+ORDER BY month;
