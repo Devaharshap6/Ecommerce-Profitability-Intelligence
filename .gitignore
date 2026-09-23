@@ -7,5 +7,6 @@ __pycache__/
 *.pem
 *.key
 
-# Power BI local binary
-*.pbix
+# Local data / database artifacts
+*.db
+*.sqlite
